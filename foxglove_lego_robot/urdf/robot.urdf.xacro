@@ -1,0 +1,152 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="lego_robot">
+  <xacro:property name="scale" value="0.1"/>
+  <link name="base_link" />
+  <joint name="torso_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 ${pi}"/>
+    <parent link="base_link"/>
+    <child link="torso"/>
+  </joint>
+  <link name="torso">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/torso.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 ${0.2 * scale} ${2.5 * scale}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${3.5 * scale} ${3 * scale} ${5 * scale}" />
+        </geometry>
+    </collision>
+  </link>
+  <joint name="torso_head_joint" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit lower="${-pi}" upper="${pi}" effort="0.01" velocity="10.0" />
+    <origin xyz="0 0 ${4.5 * scale}" rpy="0 0 0"/>
+    <parent link="torso"/>
+    <child link="head"/>
+  </joint>
+  <link name="head">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/head.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 ${0.21 * scale} ${1.4 * scale}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${2.4 * scale} ${2.2 * scale} ${3 * scale}" />
+        </geometry>
+    </collision>
+  </link>
+  <joint name="right_antenna_joint" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit lower="-1.222" upper="${pi/2}" effort="0.01" velocity="10.0" />
+    <origin xyz="${1.1 * scale} ${-0.4 * scale} ${1.55 * scale}" rpy="${pi/2} ${pi/2} 0"/>
+    <parent link="head"/>
+    <child link="right_antenna"/>
+  </joint>
+  <link name="right_antenna">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/antenna.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 ${0.75 * scale} 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${0.25 * scale}" length="${1.5 * scale}" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_antenna_joint" type="revolute">
+    <axis xyz="0 0 1" />
+    <limit lower="-1.222" upper="${pi/2}" effort="0.01" velocity="10.0" />
+    <origin xyz="${-1.1 * scale} ${-0.4 * scale} ${1.55 * scale}" rpy="${-pi/2} ${pi/2} 0"/>
+    <parent link="head"/>
+    <child link="left_antenna"/>
+  </joint>
+  <link name="left_antenna">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/antenna.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+        <collision>
+      <origin xyz="0 ${0.75 * scale} 0" rpy="1.57 0 0"/>
+      <geometry>
+        <cylinder radius="${0.25 * scale}" length="${1.5 * scale}" />
+      </geometry>
+    </collision>
+  </link>
+   <joint name="right_arm_joint" type="revolute">
+    <axis xyz="0 0 -1" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="0.01" velocity="10.0" />
+    <origin xyz="${1.98 * scale} 0 ${4.08 * scale}" rpy="${-pi/2} 3.1416 0"/>
+    <parent link="torso"/>
+    <child link="right_arm"/>
+  </joint>
+  <link name="right_arm">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/arm.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="${-1.2 * scale} ${0.2 * scale} 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${3 * scale} ${0.9 * scale} ${0.8 * scale}" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="left_arm_joint" type="revolute">
+    <axis xyz="0 0 -1" />
+    <limit lower="${-pi/2}" upper="${pi/2}" effort="0.01" velocity="10.0" />
+    <origin xyz="${-1.98 * scale} 0 ${4.08 * scale}" rpy="${pi/2} 0 0"/>
+    <parent link="torso"/>
+    <child link="left_arm"/>
+  </joint>
+  <link name="left_arm">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/arm.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+      <collision>
+      <origin xyz="${-1.2 * scale} ${0.2 * scale} 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${3 * scale} ${0.9 * scale} ${0.8 * scale}" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="right_hand_joint" type="fixed">
+    <origin xyz="${-2.38 * scale} ${0.3 * scale} 0" rpy="0 0 0"/>
+    <parent link="right_arm"/>
+    <child link="right_hand"/>
+  </joint>
+  <link name="right_hand" />
+  <joint name="left_hand_joint" type="fixed">
+    <origin xyz="${-2.38 * scale} ${0.3 * scale} 0" rpy="3.1416 0 0"/>
+    <parent link="left_arm"/>
+    <child link="left_hand"/>
+  </joint>
+  <link name="left_hand" />
+  <joint name="flowers_joint" type="fixed">
+    <origin xyz="0 0 ${-0.2 * scale}" rpy="0 0 0"/>
+    <parent link="left_hand"/>
+    <child link="flowers"/>
+  </joint>
+  <link name="flowers">
+    <visual>
+      <geometry>
+        <mesh filename="package://foxglove_lego_robot/meshes/flowers.dae" scale="${scale} ${scale} ${scale}" />
+      </geometry>
+    </visual>
+      <collision>
+      <origin xyz="0 0 ${1.25 * scale}" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${0.5 * scale}" length="${2.75 * scale}" />
+      </geometry>
+    </collision>
+  </link>
+</robot>

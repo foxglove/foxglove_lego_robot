@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>foxglove_lego_robot</name>
+  <version>0.1.0</version>
+  <description>URDF of the Foxglove Lego robot</description>
+  <author email="achim@foxglove.dev">Hans-Joachim Krauch</author>
+  <maintainer email="achim@foxglove.dev">Hans-Joachim Krauch</maintainer>
+  <license>MIT</license>
+  <url>http://foxglove.dev</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
